@@ -1,0 +1,13 @@
+<div class="contribution-container">
+    <div class="graph-header">
+        <h2>1,234 contributions in the last year</h2>
+    </div>
+
+    <div class="graph-wrapper" *ngIf="!isLoading; else loading">
+        <div echarts [options]="chartOption" class="echarts-graph"></div>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading-state">Loading contributions...</div>
+    </ng-template>
+</div>

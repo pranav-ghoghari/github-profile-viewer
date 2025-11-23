@@ -1,0 +1,145 @@
+:host {
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    color: #1f2328;
+    background-color: #ffffff;
+}
+
+.header {
+    background-color: #24292f;
+    color: #ffffff;
+    padding: 16px 32px;
+    margin-bottom: 24px;
+
+    .header-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        svg {
+            fill: #ffffff;
+        }
+
+        .header-user {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .search-container {
+            margin-left: 16px;
+
+            .search-input {
+                background-color: hsla(0, 0%, 100%, .125);
+                border: 1px solid #57606a;
+                border-radius: 6px;
+                color: #ffffff;
+                padding: 5px 12px;
+                font-size: 14px;
+                width: 240px;
+                outline: none;
+
+                &:focus {
+                    background-color: #ffffff;
+                    color: #1f2328;
+                    border-color: #ffffff;
+                }
+
+                &::placeholder {
+                    color: #8c959f;
+                }
+            }
+        }
+    }
+}
+
+.main-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
+}
+
+.layout-grid {
+    display: flex;
+    gap: 24px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.sidebar-column {
+    width: 296px;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.content-column {
+    flex-grow: 1;
+    min-width: 0; // Prevent flex item from overflowing
+}
+
+.profile-nav {
+    margin-bottom: 16px;
+    border-bottom: 1px solid #d0d7de;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.tab-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+
+    .tab-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        font-size: 14px;
+        line-height: 30px;
+        color: #1f2328;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: border-bottom-color 0.2s;
+        white-space: nowrap;
+
+        svg {
+            margin-right: 8px;
+            fill: #636c76;
+        }
+
+        &:hover {
+            border-bottom-color: #d0d7de;
+
+            svg {
+                fill: #1f2328;
+            }
+        }
+
+        &.active {
+            font-weight: 600;
+            border-bottom-color: #fd8c73;
+
+            svg {
+                fill: #1f2328;
+            }
+        }
+    }
+}
+
+.content-area {
+    padding-top: 16px;
+}
