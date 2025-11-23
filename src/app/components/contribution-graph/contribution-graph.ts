@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { EChartsOption } from 'echarts';
 import { GithubService } from '../../services/github.service';
-import { ContributionDay } from '../../models/github.models';
+import { ContributionDay, ContributionWeek } from '../../models/github.models';
+import { switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-contribution-graph',
@@ -15,15 +17,24 @@ import { ContributionDay } from '../../models/github.models';
 export class ContributionGraphComponent implements OnInit {
   chartOption: EChartsOption = {};
   isLoading = true;
+  totalContributions = 0;
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(private githubService: GithubService) { }
 
   ngOnInit(): void {
-    this.githubService.username$.subscribe(username => {
-      this.isLoading = true;
-      this.githubService.getContributions(username).subscribe({
+    this.githubService.username$
+      .pipe(
+        tap(() => {
+          this.isLoading = true;
+        }),
+        switchMap(username => this.githubService.getContributions(username)),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
         next: (response) => {
           const calendar = response.data.user.contributionsCollection.contributionCalendar;
+          this.totalContributions = calendar.totalContributions ?? 0;
           this.processData(calendar.weeks);
           this.isLoading = false;
         },
@@ -32,10 +43,14 @@ export class ContributionGraphComponent implements OnInit {
           this.isLoading = false;
         }
       });
-    });
   }
 
-  private processData(weeks: any[]): void {
+  private processData(weeks: ContributionWeek[]): void {
+    if (!weeks?.length) {
+      this.chartOption = {};
+      return;
+    }
+
     const data: [string, number][] = [];
 
     weeks.forEach(week => {

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GithubService } from '../../services/github.service';
 import { GithubUser } from '../../models/github.models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-sidebar',
@@ -12,13 +13,21 @@ import { Observable } from 'rxjs';
   styleUrl: './profile-sidebar.scss'
 })
 export class ProfileSidebarComponent implements OnInit {
-  user$: Observable<GithubUser> | undefined;
+  user$: Observable<GithubUser | null> | undefined;
+  error: string | null = null;
 
   constructor(private githubService: GithubService) { }
 
   ngOnInit(): void {
     this.githubService.username$.subscribe(username => {
-      this.user$ = this.githubService.getUser(username);
+      this.error = null;
+      this.user$ = this.githubService.getUser(username).pipe(
+        catchError(err => {
+          console.error('Error fetching user:', err);
+          this.error = 'User not found or API error. Please check your token and try again.';
+          return of(null);
+        })
+      );
     });
   }
 }

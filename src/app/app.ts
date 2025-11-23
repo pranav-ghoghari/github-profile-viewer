@@ -14,7 +14,7 @@ import { GithubService } from './services/github.service';
 })
 export class AppComponent {
   title = 'github-profile-viewer';
-  username = 'pranav-ghoghari';
+  username = 'rushabh-ghoghari';
 
   constructor(public githubService: GithubService) { }
 

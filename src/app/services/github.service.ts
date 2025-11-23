@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { GithubUser, GithubRepo, ContributionsResponse } from '../models/github.models';
 
@@ -12,8 +12,9 @@ export class GithubService {
   private restBase = 'https://api.github.com';
   private graphqlUrl = 'https://api.github.com/graphql';
   private token = environment.githubToken;
+  private contributionsCache = new Map<string, ContributionsResponse>();
 
-  private usernameSubject = new BehaviorSubject<string>('pranav-ghoghari');
+  private usernameSubject = new BehaviorSubject<string>('rushabh-ghoghari');
   username$ = this.usernameSubject.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -48,6 +49,11 @@ export class GithubService {
   }
 
   getContributions(username: string): Observable<ContributionsResponse> {
+    const cached = this.contributionsCache.get(username);
+    if (cached) {
+      return of(cached);
+    }
+
     const query = `
       query ($username: String!) {
         user(login: $username) {
@@ -79,6 +85,9 @@ export class GithubService {
           throw new Error((response as any).errors[0].message);
         }
         return response;
+      }),
+      tap(response => {
+        this.contributionsCache.set(username, response);
       }),
       catchError(error => {
         console.error('GraphQL Error:', error);
