@@ -2,6 +2,22 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
 
+## GitHub API access
+
+The application requires a GitHub personal access token because it calls both the REST and GraphQL APIs.  
+Create a classic token with the `public_repo` scope and expose it through a `.env` file or build environment variable.
+
+`npm start`, `npm run build`, `npm run test`, and `npm run watch` automatically run `scripts/generate-env.mjs`, which copies one of the following variables into `src/environments/environment.generated.ts`:
+
+- `NG_APP_GITHUB_TOKEN`
+- `githubToken`
+- `GITHUB_TOKEN`
+
+Because the generated file is gitignored, the token never lands in your repository, yet Angular still gets a concrete string during bundling.
+
+- **Local development**: create a `.env` file at the project root and add one of the variables listed above (e.g. `NG_APP_GITHUB_TOKEN=your-token`).
+- **Vercel / CI**: define the same variable in the project settings so builds have access to it.
+
 ## Development server
 
 To start a local development server, run:
