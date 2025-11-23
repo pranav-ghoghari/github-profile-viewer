@@ -1,0 +1,66 @@
+<div class="projects-list">
+    <div class="list-header">
+        <div class="header-controls">
+            <button class="filter-btn">
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                    <path
+                        d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM6.5 6.5v8h7.75a.25.25 0 0 0 .25-.25V6.5Zm8-1.5V1.75a.25.25 0 0 0-.25-.25H6.5V5Zm-13 1.5v7.75c0 .138.112.25.25.25H5v-8ZM5 5V1.5H1.75a.25.25 0 0 0-.25.25V5Z">
+                    </path>
+                </svg>
+                Type
+            </button>
+            <button class="filter-btn">
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                    <path d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"></path>
+                </svg>
+                Language
+            </button>
+            <button class="filter-btn">
+                Sort by: Recently updated
+            </button>
+        </div>
+    </div>
+
+    <div class="projects-container">
+        <div *ngFor="let project of projects" class="project-card">
+            <div class="project-header">
+                <div class="project-icon">
+                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                        <path
+                            d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM6.5 6.5v8h7.75a.25.25 0 0 0 .25-.25V6.5Zm8-1.5V1.75a.25.25 0 0 0-.25-.25H6.5V5Zm-13 1.5v7.75c0 .138.112.25.25.25H5v-8ZM5 5V1.5H1.75a.25.25 0 0 0-.25.25V5Z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <a [href]="project.url" target="_blank" class="project-name">{{ project.name }}</a>
+                    <span class="project-status" [class.closed]="project.state === 'CLOSED'">
+                        {{ project.state === 'OPEN' ? 'Open' : 'Closed' }}
+                    </span>
+                </div>
+            </div>
+
+            <p class="project-description" *ngIf="project.description">{{ project.description }}</p>
+
+            <div class="project-progress" *ngIf="project.progress !== undefined">
+                <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="project.progress"></div>
+                </div>
+                <span class="progress-text">{{ project.progress }}% complete</span>
+            </div>
+
+            <div class="project-meta">
+                <span class="update-time">{{ getRelativeTime(project.updatedAt) }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="projects.length === 0">
+        <svg aria-hidden="true" height="48" viewBox="0 0 16 16" version="1.1" width="48" class="empty-icon">
+            <path
+                d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM6.5 6.5v8h7.75a.25.25 0 0 0 .25-.25V6.5Zm8-1.5V1.75a.25.25 0 0 0-.25-.25H6.5V5Zm-13 1.5v7.75c0 .138.112.25.25.25H5v-8ZM5 5V1.5H1.75a.25.25 0 0 0-.25.25V5Z">
+            </path>
+        </svg>
+        <h3>You don't have any projects yet</h3>
+        <p>Create a project to organize your work</p>
+    </div>
+</div>

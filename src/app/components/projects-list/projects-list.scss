@@ -1,0 +1,165 @@
+.projects-list {
+    .list-header {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #d0d7de;
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+
+            .filter-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                background: #fff;
+                border: 1px solid #d0d7de;
+                border-radius: 6px;
+                font-size: 14px;
+                color: #24292f;
+                cursor: pointer;
+                transition: background-color 0.2s;
+
+                svg {
+                    fill: #656d76;
+                }
+
+                &:hover {
+                    background: #f6f8fa;
+                }
+            }
+        }
+    }
+
+    .projects-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .project-card {
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        padding: 16px;
+        background: #fff;
+        transition: border-color 0.2s;
+
+        &:hover {
+            border-color: #0969da;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+
+            .project-icon {
+                flex-shrink: 0;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f6f8fa;
+                border-radius: 6px;
+
+                svg {
+                    fill: #656d76;
+                }
+            }
+
+            .project-info {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .project-name {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #0969da;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                .project-status {
+                    font-size: 12px;
+                    padding: 2px 8px;
+                    border-radius: 2em;
+                    background: #1a7f37;
+                    color: #fff;
+                    font-weight: 500;
+
+                    &.closed {
+                        background: #656d76;
+                    }
+                }
+            }
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #656d76;
+            margin: 0 0 12px 44px;
+            line-height: 1.5;
+        }
+
+        .project-progress {
+            margin: 12px 0 12px 44px;
+
+            .progress-bar {
+                height: 8px;
+                background: #f6f8fa;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 4px;
+
+                .progress-fill {
+                    height: 100%;
+                    background: #1a7f37;
+                    transition: width 0.3s ease;
+                }
+            }
+
+            .progress-text {
+                font-size: 12px;
+                color: #656d76;
+            }
+        }
+
+        .project-meta {
+            margin-left: 44px;
+            font-size: 12px;
+            color: #656d76;
+        }
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: #656d76;
+
+        .empty-icon {
+            fill: #d0d7de;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292f;
+            margin: 0 0 8px 0;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+}

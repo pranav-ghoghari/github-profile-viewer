@@ -1,0 +1,36 @@
+<div class="activity-overview">
+    <h2 class="section-title">Contribution activity</h2>
+
+    <div class="activity-period">
+        <span class="period-label">October 2025</span>
+    </div>
+
+    <div class="activity-list">
+        <div *ngFor="let item of activityItems" class="activity-item">
+            <div class="activity-icon">
+                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                    <path [attr.d]="getActivityIcon(item.type)"></path>
+                </svg>
+            </div>
+            <div class="activity-content">
+                <div class="activity-text">
+                    {{ getActivityText(item) }}
+                </div>
+                <div class="activity-repos">
+                    <a *ngFor="let repo of item.repositories.slice(0, 3); let i = index"
+                        [href]="'https://github.com/' + repo" target="_blank" class="repo-link">
+                        {{ repo }}<span *ngIf="i < item.repositories.slice(0, 3).length - 1">, </span>
+                    </a>
+                    <span *ngIf="item.repositories.length > 3" class="more-repos">
+                        and {{ item.repositories.length - 3 }} other {{ item.repositories.length - 3 === 1 ?
+                        'repository' : 'repositories' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="show-more">
+        <button class="show-more-btn">Show more activity</button>
+    </div>
+</div>

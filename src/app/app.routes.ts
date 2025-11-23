@@ -1,13 +1,16 @@
 import { Routes } from '@angular/router';
 
 import { RepoListComponent } from './components/repo-list/repo-list';
-import { ContributionGraphComponent } from './components/contribution-graph/contribution-graph';
+import { OverviewContainerComponent } from './components/overview-container/overview-container';
+import { ProjectsListComponent } from './components/projects-list/projects-list';
+import { PackagesListComponent } from './components/packages-list/packages-list';
+import { StarredReposComponent } from './components/starred-repos/starred-repos';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'overview', pathMatch: 'full' },
-    { path: 'overview', component: ContributionGraphComponent }, // Using ContributionGraph as Overview for now
+    { path: 'overview', component: OverviewContainerComponent },
     { path: 'repositories', component: RepoListComponent },
-    { path: 'projects', component: ContributionGraphComponent }, // Placeholder
-    { path: 'packages', component: ContributionGraphComponent }, // Placeholder
-    { path: 'stars', component: ContributionGraphComponent } // Placeholder
+    { path: 'projects', component: ProjectsListComponent },
+    { path: 'packages', component: PackagesListComponent },
+    { path: 'stars', component: StarredReposComponent }
 ];

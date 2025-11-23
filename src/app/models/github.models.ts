@@ -62,3 +62,34 @@ export interface ContributionsResponse {
         };
     };
 }
+
+export interface GithubProject {
+    id: number;
+    name: string;
+    description: string | null;
+    state: 'OPEN' | 'CLOSED';
+    url: string;
+    createdAt: string;
+    updatedAt: string;
+    progress?: number;
+}
+
+export interface GithubPackage {
+    id: number;
+    name: string;
+    packageType: 'NPM' | 'DOCKER' | 'MAVEN' | 'NUGET' | 'RUBYGEMS';
+    version: string;
+    description: string | null;
+    downloads?: number;
+    publishedAt: string;
+    url: string;
+}
+
+export interface ActivityItem {
+    id: string;
+    type: 'COMMITS' | 'PULL_REQUESTS' | 'ISSUES' | 'REPOSITORIES' | 'REVIEWS';
+    count: number;
+    repositoryCount: number;
+    repositories: string[];
+    date: string;
+}

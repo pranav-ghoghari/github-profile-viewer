@@ -1,0 +1,44 @@
+<div class="packages-list">
+    <div class="list-header">
+        <h3>Packages</h3>
+    </div>
+
+    <div class="packages-container">
+        <div *ngFor="let pkg of packages" class="package-card">
+            <div class="package-icon">
+                <svg aria-hidden="true" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+                    <path [attr.d]="getPackageIcon(pkg.packageType)"></path>
+                </svg>
+            </div>
+            <div class="package-content">
+                <div class="package-header">
+                    <a [href]="pkg.url" target="_blank" class="package-name">{{ pkg.name }}</a>
+                    <span class="package-version">{{ pkg.version }}</span>
+                </div>
+                <p class="package-description">{{ pkg.description }}</p>
+                <div class="package-meta">
+                    <span class="package-type">{{ pkg.packageType }}</span>
+                    <span class="dot">•</span>
+                    <span class="downloads" *ngIf="pkg.downloads">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                            <path
+                                d="M8.75 2.75a.75.75 0 0 0-1.5 0v5.69L5.03 6.22a.75.75 0 0 0-1.06 1.06l3.5 3.5a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0-1.06-1.06L8.75 8.44V2.75Z">
+                            </path>
+                            <path
+                                d="M3.5 9.75a.75.75 0 0 0-1.5 0v1.5A2.75 2.75 0 0 0 4.75 14h6.5A2.75 2.75 0 0 0 14 11.25v-1.5a.75.75 0 0 0-1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-6.5c-.69 0-1.25-.56-1.25-1.25v-1.5Z">
+                            </path>
+                        </svg>
+                        {{ pkg.downloads }} downloads
+                    </span>
+                    <span class="dot">•</span>
+                    <span class="published">Published {{ pkg.publishedAt | date:'mediumDate' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="packages.length === 0">
+        <h3>No packages published</h3>
+        <p>Publish your first package to get started</p>
+    </div>
+</div>
